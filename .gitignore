@@ -1,0 +1,8 @@
+# Mac garbage
+.DS_Store
+
+# Dependency directory
+node_modules
+
+# Log files such as npm-debug.log
+*.log
