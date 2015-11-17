@@ -17,7 +17,7 @@ export default React.createClass({
       company: company.getValue()
     });
 
-    first.setValue('')
+    first.getInputDOMNode().value = last.getInputDOMNode().value = email.getInputDOMNode().value = company.getInputDOMNode().value = ''
   },
 
   render() {
