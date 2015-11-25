@@ -31,12 +31,13 @@ export default React.createClass({
     this.setState({ sortBy });
   },
 
-  addContact(contact) {
+  addContact(contact, clearForm) {
     const error = validateContact(contact)
     if (error) {
       return this.setState({ error });
     }
 
+    clearForm();
     this.setState({
       error: null,
       contacts: this.state.contacts.concat(contact)

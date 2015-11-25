@@ -15,8 +15,11 @@ export default React.createClass({
       last: last.getValue(),
       email: email.getValue(),
       company: company.getValue()
-    });
+    }, this.clearForm);
+  },
 
+  clearForm() {
+    const { first, last, email, company } = this.refs;
     first.getInputDOMNode().value = last.getInputDOMNode().value = email.getInputDOMNode().value = company.getInputDOMNode().value = ''
   },
 
