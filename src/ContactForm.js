@@ -24,8 +24,8 @@ export default class ContactForm extends Component {
     }
 
     try {
+      this.setState({ error: null })
       await this.props.onSubmit(contact)
-
       first.value = last.value = email.value = company.value = ''
     } catch (error) {
       this.setState({ error })
@@ -37,26 +37,25 @@ export default class ContactForm extends Component {
   refEmail = ref => this.email = ref
   refCompany = ref => this.company = ref
 
-  render() {
+  renderField = (name, type) => {
     const { error } = this.state
-
-    const FormField = props => {
-      const { name, ...rest } = props
-      const capitalize = name[0].toUpperCase() + name.slice(1)
-      return (
-        <FormGroup validationState={error && error[name] && 'error'}>
-          <ControlLabel>{capitalize}</ControlLabel>
-          <FormControl ref={this[`ref${capitalize}`]} {...rest} />
-        </FormGroup>
-      )
-    }
+    const capitalize = name[0].toUpperCase() + name.slice(1)
 
     return (
+      <FormGroup validationState={error && error[name] && 'error'}>
+        <ControlLabel>{capitalize}</ControlLabel>
+        <FormControl ref={this[`ref${capitalize}`]} type={type} />
+      </FormGroup>
+    )
+  }
+
+  render() {
+    return (
       <form onSubmit={this.handleSubmit}>
-        <FormField name="first" type="text" />
-        <FormField name="last" type="text" />
-        <FormField name="email" type="email" />
-        <FormField name="company" type="text" />
+        {this.renderField('first', 'text')}
+        {this.renderField('last', 'text')}
+        {this.renderField('email', 'email')}
+        {this.renderField('company', 'text')}
 
         <Button bsStyle="primary" type="submit">
           <i className="fa fa-plus" /> Add
