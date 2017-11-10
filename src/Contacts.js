@@ -27,6 +27,7 @@ export default class Contacts extends Component {
       }
 
       this.setState({
+        selected: contact,
         contacts: this.state.contacts.concat(contact)
       })
 
