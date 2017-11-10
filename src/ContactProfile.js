@@ -5,7 +5,7 @@ import gravatar from 'gravatar'
 
 export default function ContactProfile ({contact}) {
   const { first, last, email, company } = contact
-  const src = gravatar.url(email, { s: 200, d: 'mm' }, false)
+  const src = gravatar.url(email, { s: 200, d: 'mm' }, window.location.protocol === 'https:')
 
   return (
     <div>
