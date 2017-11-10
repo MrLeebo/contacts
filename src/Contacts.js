@@ -89,7 +89,7 @@ export default class Contacts extends Component {
             <Col md={3} mdPush={9}>
               <ContactProfile contact={selected} />
 
-              <Button className="xs-visible sm-visible" type="button" onClick={this.deselectContact}>
+              <Button className="visible-xs visible-sm" type="button" onClick={this.deselectContact}>
                 <i className="fa fa-plus" /> Add Contact
               </Button>
             </Col>
