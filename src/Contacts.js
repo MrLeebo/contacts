@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { Grid, PageHeader, Row, Col, Panel, Table } from 'react-bootstrap'
+import { Grid, PageHeader, Row, Col, Table, Button } from 'react-bootstrap'
+import classNames from 'classnames'
 
 import ContactForm from './ContactForm'
 import ContactProfile from './ContactProfile'
@@ -12,6 +13,7 @@ import validateContact from './validateContact'
 export default class Contacts extends Component {
   state = {
     contacts: data,
+    selected: null,
     sortBy: 'email'
   }
 
@@ -25,13 +27,14 @@ export default class Contacts extends Component {
       }
 
       this.setState({
-        error: null,
         contacts: this.state.contacts.concat(contact)
       })
 
       resolve(contact)
     })
   }
+
+  deselectContact = () => this.setState({ selected: null })
 
   renderGroups = () => {
     const { contacts, sortBy, selected } = this.state
@@ -41,7 +44,11 @@ export default class Contacts extends Component {
     const renderContact = contact => {
       const label = contact[sortBy]
       const alreadySelected = selected === contact
-      const onClick = () => this.setState({ selected: !alreadySelected && contact })
+      const onClick = () => {
+        this.setState({ selected: !alreadySelected && contact })
+        console.log('scrollTop')
+        window.scrollTo(0, 0)
+      }
 
       const Header = () => label[0] !== letter && (
         <tr>
@@ -68,38 +75,39 @@ export default class Contacts extends Component {
   }
 
   render() {
-    const { sortBy, error } = this.state
+    const { sortBy, selected } = this.state
 
     return (
       <Grid>
         <Row>
-          <Col xs={12}>
+          <Col md={12} xsHidden smHidden>
             <PageHeader>Contacts <small>Sample React App</small></PageHeader>
           </Col>
         </Row>
         <Row>
-          <Col xs={3}>
-            <SortControl sortBy={sortBy} onChange={this.onSortChange} />
+          {selected && (
+            <Col md={3} mdPush={9}>
+              <ContactProfile contact={selected} />
 
-            <Panel>
-              <ContactForm ref="form" onSubmit={this.addContact}/>
-              <div>
-              {error && <span className="text-danger">{'* ' + error}</span>}
-              </div>
-            </Panel>
+              <Button className="xs-visible sm-visible" type="button" onClick={this.deselectContact}>
+                <i className="fa fa-plus" /> Add Contact
+              </Button>
+            </Col>
+          )}
+          <Col md={3} mdPull={selected ? 3 : 0}>
+            <SortControl sortBy={sortBy} onChange={this.onSortChange} className='hidden-xs hidden-sm' />
+
+            <div className={classNames({ 'hidden-xs': !!selected, 'hidden-sm': !!selected })}>
+              <ContactForm onSubmit={this.addContact} />
+            </div>
           </Col>
-          <Col xs={this.state.selected ? 6 : 9}>
+          <Col md={selected ? 6 : 9} mdPull={selected ? 3 : 0}>
             <Table striped hover condensed>
               <tbody>
                 {this.renderGroups()}
               </tbody>
             </Table>
           </Col>
-          {this.state.selected && (
-            <Col xs={3}>
-              <ContactProfile contact={this.state.selected}/>
-            </Col>
-          )}
         </Row>
       </Grid>
     )

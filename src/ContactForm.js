@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { func } from 'prop-types'
 import { findDOMNode } from 'react-dom'
-import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
+import { Panel, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
 
 export default class ContactForm extends Component {
   static propTypes = { onSubmit: func }
@@ -51,16 +51,18 @@ export default class ContactForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        {this.renderField('first', 'text')}
-        {this.renderField('last', 'text')}
-        {this.renderField('email', 'email')}
-        {this.renderField('company', 'text')}
+      <Panel>
+        <form onSubmit={this.handleSubmit}>
+          {this.renderField('first', 'text')}
+          {this.renderField('last', 'text')}
+          {this.renderField('email', 'email')}
+          {this.renderField('company', 'text')}
 
-        <Button bsStyle="primary" type="submit">
-          <i className="fa fa-plus" /> Add
-        </Button>
-      </form>
+          <Button bsStyle="primary" type="submit">
+            <i className="fa fa-plus" /> Add
+          </Button>
+        </form>
+      </Panel>
     )
   }
 }
