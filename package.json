@@ -1,9 +1,11 @@
 {
   "name": "contacts",
   "version": "0.1.0",
+  "homepage" : "http://mrleebo.github.io/contacts",
   "private": true,
   "dependencies": {
     "classnames": "^2.2.5",
+    "gh-pages": "^1.0.0",
     "gravatar": "^1.6.0",
     "prop-types": "^15.6.0",
     "react": "^16.1.0",
@@ -12,6 +14,8 @@
     "react-scripts": "1.0.17"
   },
   "scripts": {
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
