@@ -46,7 +46,6 @@ export default class Contacts extends Component {
       const alreadySelected = selected === contact
       const onClick = () => {
         this.setState({ selected: !alreadySelected && contact })
-        console.log('scrollTop')
         window.scrollTo(0, 0)
       }
 
