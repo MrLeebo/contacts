@@ -80,7 +80,7 @@ export default class Contacts extends Component {
       <Grid>
         <Row>
           <Col md={12} xsHidden smHidden>
-            <PageHeader>Contacts <small>Sample React App</small></PageHeader>
+            <PageHeader>Contacts <small>Sample React App (<a href="https://github.com/MrLeebo/contacts" target="_blank" rel="noopener noreferrer">source</a>)</small></PageHeader>
           </Col>
         </Row>
         <Row>
